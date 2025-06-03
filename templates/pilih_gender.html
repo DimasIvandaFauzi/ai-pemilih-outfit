@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilih Gender untuk {{ event.capitalize() }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .bubble {
+            transition: all 0.3s ease;
+            border-radius: 50%;
+            padding: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            text-align: center;
+            min-width: 120px;
+            min-height: 120px;
+        }
+        .bubble:hover {
+            transform: scale(1.1);
+            background-color: #facc15;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center p-4">
+    <div class="container bg-white rounded-xl shadow-lg p-6 max-w-md w-full text-center">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">
+            Pilih <span class="italic text-yellow-500">Gender</span> untuk {{ event.capitalize() }}
+        </h1>
+        {% if valid_event %}
+        <div class="grid grid-cols-2 gap-4">
+            <a href="/templates/checklist.html?event={{ event }}&gender=pria" 
+               class="bubble bg-gray-200 text-gray-800 text-sm font-semibold flex items-center justify-center">
+               Pria
+            </a>
+            <a href="/templates/checklist.html?event={{ event }}&gender=wanita" 
+               class="bubble bg-gray-200 text-gray-800 text-sm font-semibold flex items-center justify-center">
+               Wanita
+            </a>
+        </div>
+        {% else %}
+        <p class="text-red-500">Maaf, acara tidak ditemukan.</p>
+        {% endif %}
+        <a href="/templates/match-outfit-to-event.html" 
+           class="mt-6 inline-block bg-yellow-500 text-white px-6 py-3 rounded-full hover:bg-gray-800 hover:text-white transition duration-300">
+           Kembali
+        </a>
+    </div>
+</body>
+</html>

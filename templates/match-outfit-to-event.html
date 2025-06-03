@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilih Event untuk Outfit</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .bubble {
+            transition: all 0.3s ease;
+            border-radius: 50%;
+            padding: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            text-align: center;
+            min-width: 100px;
+            min-height: 100px;
+        }
+        .bubble:hover {
+            transform: scale(1.1);
+            background-color: #facc15;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center p-4">
+    <div class="container bg-white rounded-xl shadow-lg p-6 max-w-5xl w-full text-center">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">
+            Pilih <span class="italic text-yellow-500">Event</span> untuk Outfit Anda
+        </h1>
+        <div class="search-bar flex justify-center mb-6">
+            <div class="relative w-full max-w-md">
+                <input type="text" id="searchInput" 
+                       class="w-full p-3 border-2 border-blue-500 rounded-full focus:border-yellow-500 focus:ring-2 focus:ring-yellow-500 outline-none"
+                       placeholder="Cari event (misal: nikahan, pantai, dll)"/>
+                <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">🔍</span>
+            </div>
+        </div>
+        <div id="feedback" class="text-red-500 mb-4 hidden">Event tidak ditemukan. Coba kata kunci lain.</div>
+        <div class="bubble-container grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 justify-center">
+            {% if event_list %}
+                {% for event in event_list %}
+                <a href="/templates/pilih_gender.html?event={{ event }}" 
+                   class="bubble bg-gray-200 text-gray-800 text-sm font-semibold flex items-center justify-center"
+                   data-category="{{ outfit_rekomendasi[event]['kategori'] if event in outfit_rekomendasi else 'unknown' }}">
+                   {{ event.capitalize() }}
+                </a>
+                {% endfor %}
+            {% else %}
+                <p class="text-gray-500">Tidak ada event tersedia.</p>
+            {% endif %}
+        </div>
+    </div>
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const bubbles = document.querySelectorAll('.bubble');
+        const feedback = document.getElementById('feedback');
+
+        // Pencarian interaktif
+        searchInput.addEventListener('input', async () => {
+            const query = searchInput.value.trim().toLowerCase();
+            feedback.classList.add('hidden');
+
+            if (query.length < 2) {
+                bubbles.forEach(b => b.style.display = 'flex');
+                return;
+            }
+
+            try {
+                const response = await fetch('/search', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `event_input=${encodeURIComponent(query)}`
+                });
+                const result = await response.json();
+
+                if (result.error) {
+                    feedback.textContent = result.error;
+                    feedback.classList.remove('hidden');
+                    bubbles.forEach(b => b.style.display = 'none');
+                } else {
+                    bubbles.forEach(b => {
+                        b.style.display = b.textContent.toLowerCase() === result.event.toLowerCase() ? 'flex' : 'none';
+                    });
+                }
+            } catch (error) {
+                feedback.textContent = 'Terjadi kesalahan saat mencari event.';
+                feedback.classList.remove('hidden');
+                bubbles.forEach(b => b.style.display = 'none');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rekomendasi Outfit untuk {{ event }} ({{ gender.capitalize() }})</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="container bg-white rounded-xl shadow-lg p-8 max-w-md w-full text-center">
+        <h2 class="text-3xl font-bold text-gray-800 mb-4">Taraaa~</h2>
+        <p class="text-xl text-gray-600 mb-4">
+            Ini dia <span class="text-yellow-500 font-bold">Outfit</span> untuk <span class="italic">{{ event }}</span> ({{ gender.capitalize() }})
+        </p>
+        <div class="outfit-card bg-yellow-100 rounded-lg p-4 mb-6">
+            {% if deskripsi != "Maaf, acara atau gender tidak ditemukan." %}
+            <p class="text-lg text-gray-800 mb-4">
+                <strong>Kecocokan:</strong> {{ kecocokan }}%
+            </p>
+            {% if selected_items %}
+            <p class="text-lg text-gray-800 mb-4">
+                <strong>Pakaian yang Anda Miliki:</strong><br>
+                {{ selected_items|join(', ') }}
+            </p>
+            {% endif %}
+            <p class="text-lg text-gray-800 mb-4">
+                <strong>Rekomendasi Outfit:</strong><br>
+                {{ deskripsi }}
+            </p>
+            <p class="text-lg text-gray-600 mb-2"><strong>Aksesori:</strong></p>
+            <ul class="list-disc text-left pl-6">
+                {% for item in aksesori %}
+                <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+            <p class="text-lg text-gray-600 mt-2"><strong>Kategori:</strong> {{ kategori }}</p>
+            {% else %}
+            <p class="text-lg text-red-500">{{ deskripsi }}</p>
+            {% endif %}
+        </div>
+        <div class="flex justify-center gap-4">
+            <a href="/templates/select_gender.html?event={{ event }}" 
+               class="bg-yellow-500 text-white px-6 py-3 rounded-full hover:bg-gray-800 hover:text-white transition duration-300">
+               Pilih Gender Lain
+            </a>
+            <a href="/templates/match-outfit-to-event.html" 
+               class="bg-blue-500 text-white px-6 py-3 rounded-full hover:bg-gray-800 hover:text-white transition duration-300">
+               Pilih Event Lain
+            </a>
+        </div>
+    </div>
+</body>
+</html>
