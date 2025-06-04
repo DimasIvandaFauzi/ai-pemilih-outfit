@@ -44,7 +44,7 @@
                 {% for event in event_list %}
                 <a href="/templates/pilih_gender.html?event={{ event }}" 
                    class="bubble bg-gray-200 text-gray-800 text-sm font-semibold flex items-center justify-center"
-                   data-category="{{ outfit_rekomendasi[event]['kategori'] if event in outfit_rekomendasi else 'unknown' }}">
+                   data-event="{{ event }}">
                    {{ event.capitalize() }}
                 </a>
                 {% endfor %}
@@ -53,17 +53,18 @@
             {% endif %}
         </div>
     </div>
+
     <script>
         const searchInput = document.getElementById('searchInput');
         const bubbles = document.querySelectorAll('.bubble');
         const feedback = document.getElementById('feedback');
 
-        // Pencarian interaktif
         searchInput.addEventListener('input', async () => {
             const query = searchInput.value.trim().toLowerCase();
-            feedback.classList.add('hidden');
 
+            // Jika input kosong atau terlalu pendek, tampilkan semua
             if (query.length < 2) {
+                feedback.classList.add('hidden');
                 bubbles.forEach(b => b.style.display = 'flex');
                 return;
             }
@@ -81,11 +82,15 @@
                     feedback.classList.remove('hidden');
                     bubbles.forEach(b => b.style.display = 'none');
                 } else {
+                    feedback.classList.add('hidden');
+                    const matchedEvent = result.event.trim().toLowerCase();
                     bubbles.forEach(b => {
-                        b.style.display = b.textContent.toLowerCase() === result.event.toLowerCase() ? 'flex' : 'none';
+                        const bubbleText = b.textContent.trim().toLowerCase();
+                        b.style.display = bubbleText === matchedEvent ? 'flex' : 'none';
                     });
                 }
             } catch (error) {
+                console.error(error);
                 feedback.textContent = 'Terjadi kesalahan saat mencari event.';
                 feedback.classList.remove('hidden');
                 bubbles.forEach(b => b.style.display = 'none');
