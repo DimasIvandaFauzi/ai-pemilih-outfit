@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checklist Pakaian untuk {{ event.capitalize() }} ({{ gender.capitalize() }})</title>
+    <title>Checklist Pakaian untuk {{ event|capitalize }} ({{ gender|capitalize }})</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .checkbox-label {
@@ -12,62 +12,112 @@
         .checkbox-label:hover {
             color: #facc15;
         }
+        .error-message {
+            color: #dc2626;
+            font-weight: bold;
+            padding: 1rem;
+            background-color: #fee2e2;
+            border-radius: 0.5rem;
+        }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen flex flex-col items-center p-4">
     <div class="container bg-white rounded-xl shadow-lg p-6 max-w-2xl w-full text-center">
         <h1 class="text-3xl font-bold text-gray-800 mb-6">
-            Checklist Pakaian untuk <span class="italic text-yellow-500">{{ event.capitalize() }}</span> ({{ gender.capitalize() }})
+            Checklist Pakaian untuk <span class="italic text-yellow-500">{{ event|capitalize }}</span> ({{ gender|capitalize }})
         </h1>
         {% if error %}
-        <div class="text-red-500 mb-4">{{ error }}</div>
+        <div class="error-message mb-4">{{ error }}</div>
         {% endif %}
         {% if checklist %}
-        <form action="/templates/final.html" method="POST">
+        <form id="checklistForm" action="/templates/final.html" method="POST" class="space-y-6">
             <input type="hidden" name="event" value="{{ event }}">
             <input type="hidden" name="gender" value="{{ gender }}">
             <div class="text-left">
-                <h2 class="text-xl font-semibold text-gray-800 mb-3">Atasan</h2>
-                {% for item in checklist['atasan'] %}
-                <div class="mb-2">
-                    <label class="checkbox-label flex items-center text-gray-700">
-                        <input type="checkbox" name="items" value="{{ item['item'] }}" class="mr-2 text-blue-500 focus:ring-yellow-500">
-                        {{ item['item'] }}
-                    </label>
+                <div class="category-section" data-category="atasan">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-3">Atasan</h2>
+                    {% for item in checklist['atasan'] %}
+                    <div class="mb-2">
+                        <label class="checkbox-label flex items-center text-gray-700">
+                            <input type="checkbox" name="items" value="{{ item.item }}" class="mr-2 text-blue-500 focus:ring-yellow-500">
+                            {{ item.item }}
+                        </label>
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
-
-                <h2 class="text-xl font-semibold text-gray-800 mb-3 mt-6">Bawahan</h2>
-                {% for item in checklist['bawahan'] %}
-                <div class="mb-2">
-                    <label class="checkbox-label flex items-center text-gray-700">
-                        <input type="checkbox" name="items" value="{{ item['item'] }}" class="mr-2 text-blue-500 focus:ring-yellow-500">
-                        {{ item['item'] }}
-                    </label>
+                <div class="category-section" data-category="bawahan">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-3 mt-6">Bawahan</h2>
+                    {% for item in checklist['bawahan'] %}
+                    <div class="mb-2">
+                        <label class="checkbox-label flex items-center text-gray-700">
+                            <input type="checkbox" name="items" value="{{ item.item }}" class="mr-2 text-blue-500 focus:ring-yellow-500">
+                            {{ item.item }}
+                        </label>
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
-
-                <h2 class="text-xl font-semibold text-gray-800 mb-3 mt-6">Aksesori</h2>
-                {% for item in checklist['aksesori'] %}
-                <div class="mb-2">
-                    <label class="checkbox-label flex items-center text-gray-700">
-                        <input type="checkbox" name="items" value="{{ item['item'] }}" class="mr-2 text-blue-500 focus:ring-yellow-500">
-                        {{ item['item'] }}
-                    </label>
+                <div class="category-section" data-category="aksesori">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-3 mt-6">Aksesori</h2>
+                    {% for item in checklist['aksesori'] %}
+                    <div class="mb-2">
+                        <label class="checkbox-label flex items-center text-gray-700">
+                            <input type="checkbox" name="items" value="{{ item.item }}" class="mr-2 text-blue-500 focus:ring-yellow-500">
+                            {{ item.item }}
+                        </label>
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
-            <button type="submit" class="mt-6 bg-yellow-500 text-white px-6 py-3 rounded-full hover:bg-gray-800 hover:text-white transition duration-300">
-                Lihat Rekomendasi
-            </button>
+            <div id="formError" class="error-message hidden mb-4">Pilih minimal satu item dari setiap kategori!</div>
+            <div class="flex justify-center gap-3 mt-6">
+                <button type="submit" class="bg-yellow-500 text-white px-6 py-3 rounded-lg hover:bg-[#facc15] transition duration-300">
+                    Lihat Rekomendasi
+                </button>
+                <a href="/templates/pilih_gender.html?event={{ event|urlencode }}"
+                   class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-[#facc15] transition duration-300">
+                   Kembali
+                </a>
+            </div>
         </form>
         {% else %}
-        <p class="text-red-500">Maaf, checklist untuk acara ini tidak tersedia.</p>
+        <div class="error-message mb-6">Maaf, checklist untuk acara atau gender ini tidak tersedia.</div>
+        <div class="flex justify-center gap-3">
+            <a href="/templates/pilih_gender.html?event={{ event|urlencode }}"
+               class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-[#facc15] transition duration-300">
+               Kembali ke Pilih Gender
+            </a>
+            <a href="/templates/match-outfit-to-event.html"
+               class="bg-gray-300 text-gray-800 px-6 py-3 rounded-lg hover:bg-[#facc15] hover:text-white transition duration-300">
+               Kembali ke Pilih Event
+            </a>
+        </div>
         {% endif %}
-        <a href="/templates/pilih_gender.html?event={{ event }}" 
-           class="mt-4 inline-block bg-blue-500 text-white px-6 py-3 rounded-full hover:bg-gray-800 hover:text-white transition duration-300">
-           Kembali
-        </a>
     </div>
+    <script>
+        const form = document.getElementById('checklistForm');
+        const errorDiv = document.getElementById('formError');
+
+        if (form) {
+            form.addEventListener('submit', (e) => {
+                const categories = document.querySelectorAll('.category-section');
+                let valid = true;
+
+                categories.forEach(category => {
+                    const checkboxes = category.querySelectorAll('input[name="items"]');
+                    const checked = Array.from(checkboxes).some(cb => cb.checked);
+                    if (!checked) {
+                        valid = false;
+                    }
+                });
+
+                if (!valid) {
+                    e.preventDefault();
+                    errorDiv.classList.remove('hidden');
+                } else {
+                    errorDiv.classList.add('hidden');
+                }
+            });
+        }
+    </script>
 </body>
 </html>

@@ -3,49 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rekomendasi Outfit untuk {{ event }} ({{ gender.capitalize() }})</title>
+    <title>Rekomendasi Outfit untuk {{ event|capitalize }} ({{ gender|capitalize }})</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .recommendation {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border-left: 4px solid #facc15;
+            background-color: #fefce8;
+        }
+        .items-list {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            text-align: left;
+        }
+        .tips-list {
+            list-style-type: decimal;
+            margin-left: 1.5rem;
+            text-align: left;
+        }
+        .error-message {
+            color: #dc2626;
+            font-weight: bold;
+            padding: 1rem;
+            background-color: #fee2e2;
+            border-radius: 0.5rem;
+        }
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
-    <div class="container bg-white rounded-xl shadow-lg p-8 max-w-md w-full text-center">
-        <h2 class="text-3xl font-bold text-gray-800 mb-4">Taraaa~</h2>
-        <p class="text-xl text-gray-600 mb-4">
-            Ini dia <span class="text-yellow-500 font-bold">Outfit</span> untuk <span class="italic">{{ event }}</span> ({{ gender.capitalize() }})
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-6">
+    <div class="container bg-white rounded-xl shadow-xl p-8 max-w-3xl w-full text-center">
+        <h2 class="text-4xl font-extrabold text-gray-800 mb-6">Taraaa~</h2>
+        <p class="text-xl text-gray-600 mb-6">
+            Ini dia <span class="font-bold text-yellow-500">Outfit</span> untuk <span class="italic">{{ event|capitalize }}</span> ({{ gender|capitalize }})
         </p>
-        <div class="outfit-card bg-yellow-100 rounded-lg p-4 mb-6">
-            {% if deskripsi != "Maaf, acara atau gender tidak ditemukan." %}
-            <p class="text-lg text-gray-800 mb-4">
-                <strong>Kecocokan:</strong> {{ kecocokan }}%
-            </p>
+        <div class="outfit-card bg-yellow-50 rounded-lg p-6 mb-8 text-left">
+            {% if error %}
+            <p class="error-message">{{ error }}</p>
+            {% else %}
+            <h3 class="section-title text-2xl font-semibold text-gray-800 mb-4">
+                <span>📋</span> Pakaian yang Anda Pilih
+            </h3>
             {% if selected_items %}
-            <p class="text-lg text-gray-800 mb-4">
-                <strong>Pakaian yang Anda Miliki:</strong><br>
-                {{ selected_items|join(', ') }}
-            </p>
-            {% endif %}
-            <p class="text-lg text-gray-800 mb-4">
-                <strong>Rekomendasi Outfit:</strong><br>
-                {{ deskripsi }}
-            </p>
-            <p class="text-lg text-gray-600 mb-2"><strong>Aksesori:</strong></p>
-            <ul class="list-disc text-left pl-6">
-                {% for item in aksesori %}
-                <li>{{ item }}</li>
+            <ul class="items-list mb-6 text-gray-700">
+                {% for item in selected_items %}
+                <li class="mb-1">{{ item }} <span class="text-blue-600 font-medium">(Kecocokan: {{ item_confidences[item]|default(0) }}%)</span></li>
                 {% endfor %}
             </ul>
-            <p class="text-lg text-gray-600 mt-2"><strong>Kategori:</strong> {{ kategori }}</p>
             {% else %}
-            <p class="text-lg text-red-500">{{ deskripsi }}</p>
+            <p class="text-gray-600 mb-6">Tidak ada pakaian yang dipilih.</p>
+            {% endif %}
+            <p class="text-xl font-bold text-gray-800 mb-6">
+                <span class="text-green-600">🔍</span> Total Kecocokan: <span class="text-green-600">{{ overall_confidence }}%</span>
+            </p>
+            <h3 class="section-title text-2xl font-semibold text-gray-800 mb-4">
+                <span>🎯</span> Rekomendasi Outfit
+            </h3>
+            <hr class="border-t-2 border-gray-200 mb-6">
+            {% if recommendations %}
+            {% for rec in recommendations %}
+            <div class="recommendation">
+                <p class="text-lg font-semibold text-amber-600">
+                    <span>🔥</span> {{ loop.index }}. {{ rec.nama }} (Confidence: {{ rec.confidence }}%)
+                </p>
+                <p class="text-gray-600 italic mb-3">🎪 {{ rec.deskripsi }}</p>
+                <p class="text-gray-800 font-medium">✅ Item yang Digunakan:</p>
+                <ul class="items-list text-gray-700">
+                    {% if rec.outfit_items %}
+                    {% for item in rec.outfit_items %}
+                    <li>{{ item }}</li>
+                    {% endfor %}
+                    {% else %}
+                    <li>Tidak ada item yang cocok.</li>
+                    {% endif %}
+                </ul>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p class="text-gray-600 italic">Belum ada rekomendasi spesifik. Coba pilih item lain untuk hasil lebih baik!</p>
+            {% endif %}
+            {% if tips %}
+            <h3 class="section-title text-2xl font-semibold text-gray-800 mt-8 mb-4">
+                <span>💡</span> Tips Styling
+            </h3>
+            <ul class="tips-list text-gray-700">
+                {% for tip in tips %}
+                <li class="mb-2">{{ tip }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
             {% endif %}
         </div>
         <div class="flex justify-center gap-4">
-            <a href="/templates/pilih_gender.html?event={{ event }}" 
-               class="bg-yellow-500 text-white px-6 py-3 rounded-full hover:bg-gray-800 hover:text-white transition duration-300">
-               Pilih Gender Lain
+            <a href="/templates/pilih_gender.html?event={{ event|urlencode }}" 
+               class="bg-yellow-500 text-white px-6 py-3 rounded-full hover:bg-yellow-600 transition duration-200 font-medium">
+                Pilih Gender Lain
             </a>
             <a href="/templates/match-outfit-to-event.html" 
-               class="bg-blue-500 text-white px-6 py-3 rounded-full hover:bg-gray-800 hover:text-white transition duration-300">
-               Pilih Event Lain
+               class="bg-blue-500 text-white px-6 py-3 rounded-full hover:bg-blue-600 transition duration-200 font-medium">
+                Pilih Event Lain
             </a>
         </div>
     </div>

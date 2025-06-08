@@ -23,6 +23,21 @@
             background-color: #facc15;
             color: white;
         }
+        .error-message {
+            color: #dc2626;
+            font-weight: bold;
+            padding: 0.5rem;
+            background-color: #fee2e2;
+            border-radius: 0.5rem;
+        }
+        .suggestion {
+            cursor: pointer;
+            padding: 0.5rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .suggestion:hover {
+            background-color: #f3f4f6;
+        }
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen flex flex-col items-center p-4">
@@ -30,19 +45,20 @@
         <h1 class="text-3xl font-bold text-gray-800 mb-6">
             Pilih <span class="italic text-yellow-500">Event</span> untuk Outfit Anda
         </h1>
-        <div class="search-bar flex justify-center mb-6">
+        <form id="searchForm" action="/templates/pilih_gender.html" method="get" class="search-bar flex justify-center mb-6">
             <div class="relative w-full max-w-md">
-                <input type="text" id="searchInput" 
+                <input type="text" id="searchInput" name="event"
                        class="w-full p-3 border-2 border-blue-500 rounded-full focus:border-yellow-500 focus:ring-2 focus:ring-yellow-500 outline-none"
                        placeholder="Cari event (misal: nikahan, pantai, dll)"/>
                 <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">🔍</span>
+                <div id="suggestions" class="absolute w-full bg-white border border-gray-300 rounded-lg mt-1 max-h-48 overflow-y-auto hidden"></div>
             </div>
-        </div>
-        <div id="feedback" class="text-red-500 mb-4 hidden">Event tidak ditemukan. Coba kata kunci lain.</div>
+        </form>
+        <div id="feedback" class="error-message mb-4 hidden"></div>
         <div class="bubble-container grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 justify-center">
             {% if event_list %}
                 {% for event in event_list %}
-                <a href="/templates/pilih_gender.html?event={{ event }}" 
+                <a href="/templates/pilih_gender.html?event={{ event|urlencode }}"
                    class="bubble bg-gray-200 text-gray-800 text-sm font-semibold flex items-center justify-center"
                    data-event="{{ event }}">
                    {{ event.capitalize() }}
@@ -53,19 +69,20 @@
             {% endif %}
         </div>
     </div>
-
     <script>
         const searchInput = document.getElementById('searchInput');
-        const bubbles = document.querySelectorAll('.bubble');
+        const suggestionsDiv = document.getElementById('suggestions');
         const feedback = document.getElementById('feedback');
+        const form = document.getElementById('searchForm');
 
         searchInput.addEventListener('input', async () => {
-            const query = searchInput.value.trim().toLowerCase();
+            const query = searchInput.value.trim();
+            suggestionsDiv.innerHTML = '';
+            suggestionsDiv.classList.add('hidden');
+            feedback.classList.add('hidden');
 
-            // Jika input kosong atau terlalu pendek, tampilkan semua
             if (query.length < 2) {
-                feedback.classList.add('hidden');
-                bubbles.forEach(b => b.style.display = 'flex');
+                document.querySelectorAll('.bubble').forEach(b => b.style.display = 'flex');
                 return;
             }
 
@@ -77,23 +94,37 @@
                 });
                 const result = await response.json();
 
+                document.querySelectorAll('.bubble').forEach(b => {
+                    b.style.display = b.dataset.event.toLowerCase().includes(query.toLowerCase()) ? 'flex' : 'none';
+                });
+
                 if (result.error) {
                     feedback.textContent = result.error;
                     feedback.classList.remove('hidden');
-                    bubbles.forEach(b => b.style.display = 'none');
                 } else {
-                    feedback.classList.add('hidden');
-                    const matchedEvent = result.event.trim().toLowerCase();
-                    bubbles.forEach(b => {
-                        const bubbleText = b.textContent.trim().toLowerCase();
-                        b.style.display = bubbleText === matchedEvent ? 'flex' : 'none';
+                    const suggestion = document.createElement('div');
+                    suggestion.classList.add('suggestion');
+                    suggestion.textContent = result.event;
+                    suggestion.addEventListener('click', () => {
+                        searchInput.value = result.event;
+                        suggestionsDiv.classList.add('hidden');
+                        form.submit();
                     });
+                    suggestionsDiv.appendChild(suggestion);
+                    suggestionsDiv.classList.remove('hidden');
                 }
             } catch (error) {
-                console.error(error);
+                console.error('Error:', error);
                 feedback.textContent = 'Terjadi kesalahan saat mencari event.';
                 feedback.classList.remove('hidden');
-                bubbles.forEach(b => b.style.display = 'none');
+            }
+        });
+
+        form.addEventListener('submit', (e) => {
+            if (!searchInput.value.trim()) {
+                e.preventDefault();
+                feedback.textContent = 'Masukkan nama acara terlebih dahulu!';
+                feedback.classList.remove('hidden');
             }
         });
     </script>
