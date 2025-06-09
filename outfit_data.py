@@ -1,15 +1,6 @@
 # Data rekomendasi outfit dengan checklist spesifik gender
 outfit_rekomendasi = {
     "kuliah": {
-        "deskripsi": {
-            "pria": "Kemeja rapi atau kaos polo, celana kain atau chino, sepatu formal atau sneakers, ransel praktis.",
-            "wanita": "Atasan blouse kasual atau kaos nyaman, celana jeans skinny atau kulot, sepatu sneakers atau flat shoes, tote bag atau ransel."
-        },
-        "aksesori": {
-            "pria": ["Ransel", "Jam tangan", "Kacamata"],
-            "wanita": ["Tote bag", "Syal ringan", "Kacamata baca"]
-        },
-        "kategori": "kasual",
         "checklist": {
             "pria": {
                 "atasan": [
@@ -189,15 +180,6 @@ outfit_rekomendasi = {
         }
     },
     "pantai": {
-        "deskripsi": {
-            "pria": "Kaos tipis berbahan linen, celana pendek chino, sandal jepit kulit, topi jerami untuk perlindungan matahari.",
-            "wanita": "Maxi dress berbahan katun dengan motif floral, sandal jepit, topi pantai lebar, kacamata hitam."
-        },
-        "aksesori": {
-            "pria": ["Topi jerami", "Kacamata hitam", "Sandal jepit"],
-            "wanita": ["Topi pantai lebar", "Kacamata hitam", "Tote bag kanvas"]
-        },
-        "kategori": "kasual",
         "checklist": {
             "pria": {
                 "atasan": [
@@ -276,15 +258,6 @@ outfit_rekomendasi = {
         }
     },
     "kantor": {
-        "deskripsi": {
-            "pria": "Kemeja oxford lengan panjang, celana chino tailored, ikat pinggang kulit, sepatu loafer formal.",
-            "wanita": "Blazer terstruktur, kemeja sutra, rok pensil selutut, sepatu flat atau hak rendah, tas kerja kulit."
-        },
-        "aksesori": {
-            "pria": ["Jam tangan klasik", "Ikat pinggang kulit", "Kacamata formal"],
-            "wanita": ["Tote bag kulit", "Jam tangan klasik", "Kacamata formal"]
-        },
-        "kategori": "formal",
         "checklist": {
             "pria": {
                 "atasan": [
@@ -362,15 +335,6 @@ outfit_rekomendasi = {
         }
     },
     "belanja": {
-        "deskripsi": {
-            "pria": "Hoodie simpel, celana jeans relaxed-fit, sneakers nyaman, topi snapback.",
-            "wanita": "Kaos santai dengan cardigan ringan, celana jeans, sepatu kets, tas belanja kanvas."
-        },
-        "aksesori": {
-            "pria": ["Topi snapback", "Tas belanja kanvas", "Kacamata hitam"],
-            "wanita": ["Tas belanja kanvas", "Kacamata hitam", "Topi snapback"]
-        },
-        "kategori": "kasual",
         "checklist": {
             "pria": {
                 "atasan": [
@@ -447,15 +411,6 @@ outfit_rekomendasi = {
         }
     },
     "makan malam": {
-        "deskripsi": {
-            "pria": "Kemeja lengan panjang slim-fit, celana bahan tailored, sepatu loafers, ikat pinggang kulit.",
-            "wanita": "Dress semi-formal selutut dengan detail ruffle, sepatu hak rendah, clutch kecil."
-        },
-        "aksesori": {
-            "pria": ["Jam tangan elegan", "Ikat pinggang kulit", "Kacamata formal"],
-            "wanita": ["Clutch", "Jam tangan elegan", "Anting kecil"]
-        },
-        "kategori": "semi-formal",
         "checklist": {
             "pria": {
                 "atasan": [
@@ -532,15 +487,6 @@ outfit_rekomendasi = {
         }
     },
     "bioskop": {
-        "deskripsi": {
-            "pria": "Sweater crew neck, celana jeans, sneakers, jaket denim ringan.",
-            "wanita": "Hoodie oversized, celana jeans skinny, sepatu kets, tas selempang."
-        },
-        "aksesori": {
-            "pria": ["Tas selempang", "Syal ringan", "Kacamata hitam"],
-            "wanita": ["Tas selempang", "Syal ringan", "Kacamata hitam"]
-        },
-        "kategori": "kasual",
         "checklist": {
             "pria": {
                 "atasan": [
@@ -615,15 +561,6 @@ outfit_rekomendasi = {
         }
     },
     "taman": {
-        "deskripsi": {
-            "pria": "Kaos nyaman dengan bahan katun, celana pendek cargo, sandal outdoor, topi pet.",
-            "wanita": "Dress santai berbahan katun, sepatu kets, topi jerami, tas anyaman."
-        },
-        "aksesori": {
-            "pria": ["Topi pet", "Kacamata hitam", "Tas anyaman"],
-            "wanita": ["Topi jerami", "Kacamata hitam", "Tas anyaman"]
-        },
-        "kategori": "kasual",
         "checklist": {
             "pria": {
                 "atasan": [
@@ -700,15 +637,6 @@ outfit_rekomendasi = {
         }
     },
     "bandara": {
-        "deskripsi": {
-            "pria": "Hoodie nyaman, celana training dengan saku, sneakers, ransel traveling.",
-            "wanita": "Sweater longgar, legging nyaman, sepatu kets, ransel kecil, syal besar."
-        },
-        "aksesori": {
-            "pria": ["Ransel", "Kacamata hitam", "Syal"],
-            "wanita": ["Ransel kecil", "Syal besar", "Kacamata hitam"]
-        },
-        "kategori": "kasual",
         "checklist": {
             "pria": {
                 "atasan": [
@@ -785,15 +713,6 @@ outfit_rekomendasi = {
         }
     },
     "cafe": {
-        "deskripsi": {
-            "pria": "Kemeja kasual lengan pendek, celana chino, sepatu loafers, jam tangan.",
-            "wanita": "Sweater tipis, celana jeans skinny, sepatu kets, tas selempang kecil."
-        },
-        "aksesori": {
-            "pria": ["Jam tangan", "Tas selempang", "Kacamata hitam"],
-            "wanita": ["Tas selempang", "Kacamata hitam", "Jam tangan"]
-        },
-        "kategori": "kasual",
         "checklist": {
             "pria": {
                 "atasan": [
@@ -870,15 +789,6 @@ outfit_rekomendasi = {
         }
     },
     "perpustakaan": {
-            "deskripsi": {
-                "pria": "Kemeja flanel kasual, kaos polos, celana jeans, sepatu kets, tote bag.",
-                "wanita": "Cardigan panjang, kaos polos, celana jeans, sepatu flat, tas tote."
-            },
-        "aksesori": {
-            "pria": ["Tote bag", "Kacamata baca", "Syal ringan"],
-            "wanita": ["Tote bag", "Kacamata baca", "Syal ringan"]
-        },
-        "kategori": "kasual",
         "checklist": {
             "pria": {
                 "atasan": [
@@ -955,15 +865,6 @@ outfit_rekomendasi = {
         }
     },
     "hiking": {
-        "deskripsi": {
-            "pria": "Jaket outdoor tahan angin, kaos quick-dry, celana trekking, sepatu hiking, topi rimba.",
-            "wanita": "Jaket softshell, legging hiking, kaos teknis, sepatu hiking, topi visor."
-        },
-        "aksesori": {
-            "pria": ["Topi rimba", "Ransel hiking", "Tongkat hiking"],
-            "wanita": ["Topi visor", "Ransel hiking", "Tongkat hiking"]
-        },
-        "kategori": "outdoor",
         "checklist": {
             "pria": {
                 "atasan": [
@@ -1040,15 +941,6 @@ outfit_rekomendasi = {
         }
     },
     "piknik": {
-        "deskripsi": {
-            "pria": "Kaos santai, celana pendek linen, sandal outdoor, topi pet.",
-            "wanita": "Dress santai dengan motif floral, sandal jepit, topi jerami, kacamata hitam."
-        },
-        "aksesori": {
-            "pria": ["Topi pet", "Keranjang piknik", "Kacamata hitam"],
-            "wanita": ["Topi jerami", "Keranjang piknik", "Kacamata hitam"]
-        },
-        "kategori": "kasual",
         "checklist": {
             "pria": {
                 "atasan": [
@@ -1125,15 +1017,6 @@ outfit_rekomendasi = {
         }
     },
     "acara keluarga": {
-        "deskripsi": {
-            "pria": "Batik modern lengan panjang, celana bahan slim-fit, sepatu loafers.",
-            "wanita": "Kebaya modern dengan rok batik, sandal hak rendah, tas kecil."
-        },
-        "aksesori": {
-            "pria": ["Jam tangan", "Ikat pinggang kulit", "Kacamata formal"],
-            "wanita": ["Tas kecil", "Anting minimalis", "Jam tangan"]
-        },
-        "kategori": "semi-formal",
         "checklist": {
             "pria": {
                 "atasan": [
@@ -1210,15 +1093,6 @@ outfit_rekomendasi = {
         }
     },
     "gym": {
-        "deskripsi": {
-            "pria": "Tank top olahraga, celana training dengan saku, sepatu gym, handuk kecil.",
-            "wanita": "Sports bra, tank top olahraga, legging gym, sepatu gym, ikat rambut."
-        },
-        "aksesori": {
-            "pria": ["Handuk kecil", "Botol air", "Sarung tangan gym"],
-            "wanita": ["Ikat rambut", "Botol air", "Sarung tangan gym"]
-        },
-        "kategori": "olahraga",
         "checklist": {
             "pria": {
                 "atasan": [
@@ -1295,15 +1169,6 @@ outfit_rekomendasi = {
         }
     },
     "meeting": {
-        "deskripsi": {
-            "pria": "Kemeja formal lengan panjang, celana bahan tailored, sepatu kulit, jas blazer.",
-            "wanita": "Blazer formal, kemeja sutra, celana bahan tailored, sepatu hak rendah, tas kerja."
-        },
-        "aksesori": {
-            "pria": ["Tas kerja", "Jam tangan", "Kacamata formal"],
-            "wanita": ["Tas kerja", "Jam tangan", "Kacamata formal"]
-        },
-        "kategori": "formal",
         "checklist": {
             "pria": {
                 "atasan": [
@@ -1380,15 +1245,6 @@ outfit_rekomendasi = {
         }
     },
     "olahraga": {
-        "deskripsi": {
-            "pria": "Kaos olahraga dry-fit, celana training longgar, sepatu lari, topi olahraga.",
-            "wanita": "Tank top olahraga, legging training, sepatu lari, ikat rambut."
-        },
-        "aksesori": {
-            "pria": ["Topi olahraga", "Botol air", "Smartwatch"],
-            "wanita": ["Ikat rambut", "Botol air", "Smartwatch"]
-        },
-        "kategori": "olahraga",
         "checklist": {
             "pria": {
                 "atasan": [
@@ -1465,15 +1321,6 @@ outfit_rekomendasi = {
         }
     },
     "event musik": {
-        "deskripsi": {
-        "pria": "Kaos grafis oversized, celana cargo longgar, sepatu sneakers chunky, jaket utility.",
-        "wanita": "Crop top statement, celana wide-leg trousers, sepatu combat boots, jaket denim oversized."
-        },
-        "aksesori": {
-            "pria": ["Gelang chain", "Topi bucket", "Crossbody bag"],
-            "wanita": ["Gelang chain", "Topi bucket", "Crossbody bag"]
-        },
-        "kategori": "kasual",
         "checklist": {
             "pria": {
                 "atasan": [

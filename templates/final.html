@@ -52,7 +52,7 @@
             {% if selected_items %}
             <ul class="items-list mb-6 text-gray-700">
                 {% for item in selected_items %}
-                <li class="mb-1">{{ item }} <span class="text-blue-600 font-medium">(Kecocokan: {{ item_confidences[item]|default(0) }}%)</span></li>
+                <li class="mb-1">{{ item }} <span class="text-blue-600 font-medium"></span></li>
                 {% endfor %}
             </ul>
             {% else %}
@@ -69,7 +69,7 @@
             {% for rec in recommendations %}
             <div class="recommendation">
                 <p class="text-lg font-semibold text-amber-600">
-                    <span>🔥</span> {{ loop.index }}. {{ rec.nama }} (Confidence: {{ rec.confidence }}%)
+                    <span>🔥</span> {{ loop.index }}. {{ rec.nama }}
                 </p>
                 <p class="text-gray-600 italic mb-3">🎪 {{ rec.deskripsi }}</p>
                 <p class="text-gray-800 font-medium">✅ Item yang Digunakan:</p>
