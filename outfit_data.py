@@ -536,7 +536,7 @@ outfit_rekomendasi = {
                 },
                 {
                     "nama": "Kasual Stylish",
-                    "kombinasi": ["Jaket denim", "Celana chino", "Syal ringan", "Kacamata hitam"],
+                    "kombinasi": ["Jaket denim", "Celana chino", "Syal ringan", "Sneakers"],
                     "bobot_min": 8,
                     "confidence_base": 80,
                     "deskripsi": "Tampilan kasual dengan sentuhan gaya untuk suasana bioskop."
@@ -798,9 +798,9 @@ outfit_rekomendasi = {
                     {"item": "Sweater crew neck", "bobot": 1}
                 ],
                 "bawahan": [
-                    {"item": "Celana jeans", "bobot": 4},
-                    {"item": "Celana selesa", "bobot": 3},
-                    {"item": "Celana jogger", "bobot": 2}
+                    {"item": "Celana chino", "bobot": 4},
+                    {"item": "Celana jogger", "bobot": 3},
+                    {"item": "Celana jeans", "bobot": 2}
                 ],
                 "aksesori": [
                     {"item": "Tote bag", "bobot": 3},
@@ -840,7 +840,7 @@ outfit_rekomendasi = {
                 },
                 {
                     "nama": "Kasual Rapi",
-                    "kombinasi": ["Cardigan ringan", "Celana chino", "Kacamata baca", "Syal ringan"],
+                    "kombinasi": ["Cardigan ringan", "Celana formal", "Kacamata baca", "Syal ringan"],
                     "bobot_min": 8,
                     "confidence_base": 80,
                     "deskripsi": "Tampilan kasual yang cocok untuk suasana tenang."
