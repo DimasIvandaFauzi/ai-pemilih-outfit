@@ -4,7 +4,7 @@ outfit_rekomendasi = {
         "checklist": {
             "pria": {
                 "atasan": [
-                    {"item": "Kemeja lengan panjang", "bobot": 3},
+                    {"item": "Kemeja flanel lengan panjang", "bobot": 3},
                     {"item": "Kemeja lengan pendek", "bobot": 2},
                     {"item": "Kaos polo", "bobot": 1},
                     {"item": "Sweater crew neck", "bobot": 1}
